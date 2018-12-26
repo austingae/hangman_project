@@ -106,16 +106,24 @@ if __name__ == '__main__':
 
 
 '''
-Summary :
+12/25 Summary :
 I begin the hangman project and will finish by tomorrow. 
 
 Tomorrow :
-1. Finish Hangman Project (add unique features to it)
-2. Learn about REGEX
-2. Learn about Github 
-4. Exercise for Github by pushing hangman project
+1. Finish Hangman Project (add unique features to it) (OK!) 
+2. Learn about REGEX (Didn't have a chance, but I did get a taste of what it is)
+2. Learn about Github (OK!)
+4. Exercise for Github by pushing hangman project (OK!) 
 
 
 python playing a song by typing a song
+
+12/26 Summary :
+I finished my hangman project, learned about git and github (https://www.youtube.com/watch?v=ol_UCWox9kc),
+& pushed my project onto github!
+
+Tomorrow:
+1. Watch How the Internet Works 101 on Khan Academy (ALL) (1 hour)
+2. Learn about REGEX (Regular expression) (1 hour)
 '''
 
