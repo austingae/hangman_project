@@ -3,50 +3,49 @@ import random
 import re
 
 
-def find_letter(user_input, vocab, i=None):
+def find_letter(user_input, vocab):
     return [i.start() for i in re.finditer(user_input, vocab)]
 
 
-def guessing(tries,vocab,blank_line):
+def guessing(tries,vocab,underscores):
     while tries > 0:
         user_input = input("Guess:")
 
         if user_input in vocab:
-            if not(user_input in blank_line):
+            if user_input not in underscores:
                 index = find_letter(user_input=user_input,vocab=vocab)
                 i = 0
-                while i < len(index):
-                    blank_line[index[i]] = user_input
-                    i += 1
+                # while i < len(index):
+                #     blank_line[index[i]] = user_input
+                #     i += 1
+                for i in find_letter(user_input=user_input,vocab=word):
+                    underscores[i] = user_input
 
-                if not('_' in blank_line):
+                if not('_' in underscores):
                     return "you won!!!"
             else:
                 print("YOU ALREADY TRIED THAT LETTER!")
         else:
             tries -= 1
 
-        print(str(blank_line) + "  Number of Tries : " + str(tries))
+        print(str(underscores) + "  Number of Tries : " + str(tries))
 
     return "you lost"
 
 
 def hangman_game(vocab):
-    'Preliminary Conditions'
-    print(introductory(vocab=vocab))
-    tries = num_of_tries(vocab=vocab)
-    blank_line = produce_blank_lines(vocab=vocab)
-    print(blank_line)
+    print(
+        "HANGMAN GAME. So...what you gotta do is guess and infer what the word might be. "
+        "WORD COUNT : %d" % len(vocab)
+    )
+    tries = number_of_tries(vocab=vocab)
+    underscores = produce_underscores(vocab=vocab)
+    print(underscores)
 
-    print(guessing(tries=tries,vocab=vocab,blank_line=blank_line))
+    print(guessing(tries=tries,vocab=vocab,underscores=underscores))
+    return
 
-
-def introductory(vocab):
-    return "HANGMAN GAME. So...what you gotta do is guess and infer what the word might be. " \
-           "WORD COUNT : " + str(len(vocab))
-
-
-def num_of_tries(vocab):
+def number_of_tries(vocab):
     if len(vocab) < 7:
         return 8
     elif 7 <= len(vocab) < 10:
@@ -55,17 +54,17 @@ def num_of_tries(vocab):
         return 14
 
 
-def produce_blank_lines(vocab):
-    blank_line = []
+def produce_underscores(vocab):
+    underscores = []
     for i in vocab:
         if i.isalpha():
-            blank_line += "_"
+            underscores += "_"
         elif i == " ":
-            blank_line += " "
+            underscores += " "
         else:
-            blank_line += i + " "
+            underscores += i + " "
 
-    return blank_line
+    return underscores
 
 
     '''
@@ -95,10 +94,12 @@ def produce_blank_lines(vocab):
 
 
 if __name__ == '__main__':
-    data = json.load(open("vocabulary.json"))
-    vocab = random.choice(list(data.keys())).lower()
-    print(vocab)
-    print(hangman_game(vocab=vocab))
+    with open("vocabulary.json") as file:
+        data = json.load(file)
+
+    word = random.choice(list(data.keys())).lower()
+    print(word)
+    print(hangman_game(vocab=word))
 
 
 
